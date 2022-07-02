@@ -1,6 +1,8 @@
 package ru.netology.honeybadger;
 
 public class Manufacturer {
+    private final int AUTO_ASSEMBLY_TIME = 3000;
+    private final int TIME_BUYING_CAR = 3000;
     private CarDealership carDealership;
 
     public Manufacturer(CarDealership carDealership) {
@@ -10,7 +12,7 @@ public class Manufacturer {
     public synchronized void releaseCar() {
         try {
             System.out.printf("Производитель  %s собирает авто!\n", Thread.currentThread().getName());
-            Thread.sleep(3000);
+            Thread.sleep(AUTO_ASSEMBLY_TIME);
             carDealership.getCars().add(new Car());
             System.out.printf("Производитель  %s выпустил 1 авто!\n", Thread.currentThread().getName());
             notify();
@@ -26,7 +28,7 @@ public class Manufacturer {
                 System.out.printf("%s: Машин нет\n", Thread.currentThread().getName());
                 wait();
             }
-            Thread.sleep(3000);
+            Thread.sleep(TIME_BUYING_CAR);
             System.out.printf("%s: уехал на новеньком авто!\n", Thread.currentThread().getName());
         } catch (InterruptedException e) {
             e.printStackTrace();
